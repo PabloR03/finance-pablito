@@ -1,3 +1,4 @@
+import { mesActual } from '../lib/budget'
 import type { Categoria, Config, Cuenta } from '../lib/types'
 
 export const CUENTAS: Cuenta[] = [
@@ -6,8 +7,9 @@ export const CUENTAS: Cuenta[] = [
   { id: 'banrural', nombre: 'Banrural', rol: 'intocable' },
 ]
 
-export const CONFIG_INICIAL: Config = {
+export const configInicial = (mesInicio = mesActual()): Config => ({
   id: 'main',
+  mesInicio,
   sueldoNeto: 6000,
   semanasPorMes: 4,
   tipoCambio: 7.7,
@@ -17,29 +19,42 @@ export const CONFIG_INICIAL: Config = {
   bonoPctAhorro: 0.7,
   bonoPctPersonal: 0.1,
   bonoPctHermano: 0.2,
-}
+})
 
-const c = (
+export const ID_HORMIGA = 3
+
+const fijo = (
   orden: number,
   nombre: string,
   frecuencia: Categoria['frecuencia'],
   monto: number,
   moneda: Categoria['moneda'] = 'GTQ',
   nota?: string,
-): Categoria => ({ id: orden, orden, nombre, frecuencia, monto, moneda, cuentaId: 'bi-monetaria', nota })
+): Categoria => ({ id: orden, orden, nombre, tipo: 'fijo', frecuencia, monto, moneda, cuentaId: 'bi-monetaria', nota })
 
 /** Presupuesto acordado en el documento del proyecto (nov 2026). */
 export const CATEGORIAS_INICIALES: Categoria[] = [
-  c(1, 'Oficina', 'semanal', 200, 'GTQ', '2 idas × Q100; incluye Uber y almuerzo si toca'),
-  c(2, 'Despensa', 'semanal', 200, 'GTQ', 'Aporte en casa'),
-  c(3, 'Gustos', 'semanal', 100, 'GTQ', 'Comida extra, chucherías'),
-  c(4, 'Pasajes', 'semanal', 50, 'GTQ', 'Transmetro'),
-  c(5, 'Gym', 'mensual', 210),
-  c(6, 'Claude + Gemini', 'mensual', 25, 'USD', '$25 en total'),
-  c(7, 'Plan Claro', 'mensual', 100),
-  c(8, 'Seguro de vida', 'mensual', 95),
-  c(9, 'Spotify', 'mensual', 90),
-  c(10, 'Crunchyroll', 'mensual', 40),
-  c(11, 'Uber', 'mensual', 25, 'GTQ', 'Suscripción'),
-  c(12, 'OneDrive', 'mensual', 10),
+  fijo(1, 'Oficina', 'semanal', 200, 'GTQ', '2 idas × Q100; incluye Uber y almuerzo si toca'),
+  fijo(2, 'Despensa', 'semanal', 200, 'GTQ', 'Aporte en casa'),
+  {
+    id: ID_HORMIGA,
+    orden: 0,
+    nombre: 'Gastos hormiga',
+    tipo: 'hormiga',
+    frecuencia: 'mensual',
+    // El presupuesto real se calcula: 1ª quincena − fijos (ver presupuestoHormiga).
+    monto: 0,
+    moneda: 'GTQ',
+    cuentaId: 'bi-monetaria',
+    nota: 'Todo lo variable: comida extra, chucherías, antojos',
+  },
+  fijo(4, 'Pasajes', 'semanal', 50, 'GTQ', 'Transmetro'),
+  fijo(5, 'Gym', 'mensual', 210),
+  fijo(6, 'Claude + Gemini', 'mensual', 25, 'USD', '$25 en total'),
+  fijo(7, 'Plan Claro', 'mensual', 100),
+  fijo(8, 'Seguro de vida', 'mensual', 95),
+  fijo(9, 'Spotify', 'mensual', 90),
+  fijo(10, 'Crunchyroll', 'mensual', 40),
+  fijo(11, 'Uber', 'mensual', 25, 'GTQ', 'Suscripción'),
+  fijo(12, 'OneDrive', 'mensual', 10),
 ]

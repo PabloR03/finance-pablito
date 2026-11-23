@@ -9,9 +9,13 @@ export interface Cuenta {
   rol: 'gastos' | 'emergencia' | 'intocable'
 }
 
+/** fijo: se marca como pagado cada semana/mes; hormiga: gasto variable del día a día. */
+export type TipoCategoria = 'fijo' | 'hormiga'
+
 export interface Categoria {
   id?: number
   nombre: string
+  tipo: TipoCategoria
   frecuencia: Frecuencia
   monto: number
   moneda: Moneda
@@ -36,6 +40,8 @@ export interface Movimiento {
 
 export interface Config {
   id: 'main'
+  /** 'YYYY-MM' desde el que se acumula el saldo de gastos hormiga */
+  mesInicio: string
   sueldoNeto: number
   semanasPorMes: number
   tipoCambio: number

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useDatos } from './hooks'
-import { Ahorro } from './screens/Ahorro'
 import { Inicio } from './screens/Inicio'
 import { Movimientos } from './screens/Movimientos'
 import { Observabilidad } from './screens/Observabilidad'
@@ -13,7 +12,6 @@ const TABS = [
   { id: 'observabilidad', label: 'Gráficas', icon: '▥', titulo: 'Observabilidad' },
   { id: 'registrar', label: 'Anotar', icon: '+', titulo: 'Anotar' },
   { id: 'presupuesto', label: 'Presup.', icon: '▤', titulo: 'Presupuesto' },
-  { id: 'ahorro', label: 'Ahorro', icon: '◆', titulo: 'Ahorro' },
 ] as const
 
 type Tab = (typeof TABS)[number]['id']
@@ -39,15 +37,13 @@ export default function App() {
           <Movimientos datos={datos} />
         ) : tab === 'observabilidad' ? (
           <Observabilidad datos={datos} />
-        ) : tab === 'presupuesto' ? (
-          <Presupuesto datos={datos} />
         ) : (
-          <Ahorro datos={datos} />
+          <Presupuesto datos={datos} />
         )}
       </main>
 
       <nav className="fixed inset-x-0 bottom-0 border-t border-slate-800 bg-slate-950/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
-        <ul className="mx-auto grid max-w-md grid-cols-6">
+        <ul className="mx-auto grid max-w-md grid-cols-5">
           {TABS.map((t) => (
             <li key={t.id}>
               <button

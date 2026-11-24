@@ -22,8 +22,7 @@ El aguinaldo y el bono 14 se reparten así: 70% al ahorro, 10% para mí y 20% pa
 - **Inicio:** navegación por mes (‹ ›) para ver meses anteriores; en el mes actual muestra el saldo hormiga disponible, fijos pendientes, ahorro del mes, saldo de cada cuenta y fondo de emergencia. Tiene botones para registrar la quincena y transferir el ahorro ya repartido.
 - **Gráficas (observabilidad):** checklist de fijos del mes, hormiga por día contra lo disponible, en qué se van los hormiga (por nota), fijos vs. hormiga de los últimos 6 meses y saldo hormiga al cierre de cada mes.
 - **Movs:** los movimientos del mes, con opción de borrar.
-- **Presupuesto:** montos editables de los fijos y su estado; el presupuesto hormiga se recalcula solo.
-- **Ahorro:** la proyección de 12 meses y la calculadora de bonos.
+- **Presupuesto:** salario y tipo de cambio editables; agregar, editar (nombre, monto, moneda, frecuencia) o quitar gastos fijos. Al quitar uno, los pagos anteriores se conservan. El presupuesto hormiga se recalcula solo.
 
 Los datos viven en el navegador (IndexedDB con Dexie). La primera vez que se abre, la app carga el presupuesto acordado.
 

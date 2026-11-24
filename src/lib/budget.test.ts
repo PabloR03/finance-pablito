@@ -71,6 +71,16 @@ describe('checklist de fijos', () => {
     expect(estado('2026-12-02', 6).pagado).toBe(false)
   })
 
+  it('un fijo quitado sale del checklist y del presupuesto, y lo libera para hormiga', () => {
+    const sinGym = cats.map((c) => (c.id === 5 ? { ...c, archivada: true } : c))
+    expect(estadoFijos(sinGym, movs, cfg).some((e) => e.cat.id === 5)).toBe(false)
+    expect(planQuincenas(sinGym, cfg).hormiga).toBeCloseTo(647.5)
+  })
+
+  it('el presupuesto hormiga sigue al salario', () => {
+    expect(planQuincenas(cats, { ...cfg, sueldoNeto: 7000 }).hormiga).toBeCloseTo(937.5)
+  })
+
   it('los gastos hormiga no aparecen en el checklist', () => {
     expect(estadoFijos(cats, movs, cfg).some((e) => e.cat.id === ID_HORMIGA)).toBe(false)
   })

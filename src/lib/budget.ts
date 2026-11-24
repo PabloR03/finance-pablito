@@ -57,7 +57,7 @@ export function montoMensual(cat: Categoria, cfg: Config): number {
   return montoPorPago(cat, cfg) * veces
 }
 
-export const fijas = (cats: Categoria[]) => cats.filter((c) => c.tipo === 'fijo')
+export const fijas = (cats: Categoria[]) => cats.filter((c) => c.tipo === 'fijo' && !c.archivada)
 export const idsHormiga = (cats: Categoria[]) => new Set(cats.filter((c) => c.tipo === 'hormiga').map((c) => c.id!))
 
 export function totalFijosMes(cats: Categoria[], cfg: Config): number {

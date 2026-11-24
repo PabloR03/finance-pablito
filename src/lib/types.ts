@@ -22,6 +22,8 @@ export interface Categoria {
   cuentaId: CuentaId
   nota?: string
   orden: number
+  /** Quitada del presupuesto; se conserva para que el historial siga mostrando su nombre. */
+  archivada?: boolean
 }
 
 export interface Movimiento {
